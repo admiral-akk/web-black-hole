@@ -1,0 +1,36 @@
+{
+  "name": "web-black-hole",
+  "version": "1.0.0",
+  "description": "Generating a black hole image using WebGPU.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm i && npm run build && npm run dev",
+    "dev": "http-server",
+    "build": "cross-env NODE_ENV=production ts-node webpack.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/admiral-akk/web-black-hole.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/admiral-akk/web-black-hole/issues"
+  },
+  "homepage": "https://github.com/admiral-akk/web-black-hole#readme",
+  "dependencies": {
+    "gl-matrix": "^3.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.30",
+    "@webgpu/types": "^0.1.15",
+    "clean-webpack-plugin": "^4.0.0",
+    "cross-env": "^7.0.3",
+    "http-server": "^14.1.0",
+    "ts-loader": "^9.3.0",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4",
+    "webpack": "^5.72.0"
+  }
+}
