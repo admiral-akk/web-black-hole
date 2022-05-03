@@ -1,6 +1,6 @@
 import { vec3 } from 'gl-matrix';
-import { White } from '../struct/Color';
-import { Zero } from '../struct/Vec3Constants';
+import { toColor } from '../struct/Color';
+import { One, Zero } from '../struct/Vec3Constants';
 export class Sphere {
     constructor(pos = Zero(), rad = 1) {
         this.pos = pos;
@@ -11,10 +11,15 @@ export class Sphere {
         return vec3.dist(pos, this.pos) - this.rad;
     }
     normal(pos) {
-        return vec3.clone(vec3.subtract(this.temp, pos, this.pos));
+        this.temp = vec3.subtract(this.temp, pos, this.pos);
+        this.temp = vec3.scale(this.temp, this.temp, 1 / vec3.len(this.temp));
+        return vec3.clone(this.temp);
     }
     color(pos) {
-        return White();
+        let norm = this.normal(pos);
+        norm = vec3.add(norm, norm, One());
+        norm = vec3.scale(norm, norm, 255 / 2);
+        return toColor(norm);
     }
 }
 //# sourceMappingURL=Sphere.js.map

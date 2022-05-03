@@ -1,7 +1,7 @@
 // https://evertpot.com/opaque-ts-types/
 
 import {vec3} from 'gl-matrix';
-import {Forward, Right, Up} from './Vec3Constants';
+import {Forward} from './Vec3Constants';
 declare const validDirection: unique symbol;
 export type Direction = vec3 & {
   [validDirection]: true;

@@ -1,6 +1,6 @@
 import {vec3} from 'gl-matrix';
-import { Color, White } from '../struct/Color';
-import {Zero} from '../struct/Vec3Constants';
+import {Color, toColor} from '../struct/Color';
+import {One, Zero} from '../struct/Vec3Constants';
 import {SDF} from './SDF';
 
 export class Sphere implements SDF {
@@ -18,10 +18,15 @@ export class Sphere implements SDF {
   }
 
   normal(pos: vec3): vec3 {
-    return vec3.clone(vec3.subtract(this.temp, pos, this.pos));
+    this.temp = vec3.subtract(this.temp, pos, this.pos);
+    this.temp = vec3.scale(this.temp, this.temp, 1 / vec3.len(this.temp));
+    return vec3.clone(this.temp);
   }
 
   color(pos: vec3): Color {
-    return White();
+    let norm = this.normal(pos);
+    norm = vec3.add(norm, norm, One());
+    norm = vec3.scale(norm, norm, 255 / 2);
+    return toColor(norm);
   }
 }

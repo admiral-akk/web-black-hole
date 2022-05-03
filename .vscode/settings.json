@@ -1,0 +1,9 @@
+{
+    "files.exclude": {
+      "node_modules": true,
+      "build": true,
+      "dist": true,
+      "old": true,
+    }//,"files.exclude": {}
+    // Uncomment the above to see the generated files/node_modules. Useful for when you want to debug.
+  }

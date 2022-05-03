@@ -6,5 +6,4 @@ export declare class Raycaster {
     private maxDistance;
     constructor(rayCollisionDistance?: number, maxDistance?: number);
     castRay(ray: Ray): Color;
-    private backgroundColor;
 }

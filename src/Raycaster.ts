@@ -1,8 +1,7 @@
 import {vec3} from 'gl-matrix';
 import {SDF} from './sdf/SDF';
 import {Sphere} from './sdf/Sphere';
-import {Black, Color, toColor, White} from './struct/Color';
-import {Direction} from './struct/Direction';
+import {Black, Color} from './struct/Color';
 import {Ray} from './struct/Ray';
 import {Forward, Zero} from './struct/Vec3Constants';
 
@@ -12,7 +11,7 @@ export class Raycaster {
   private maxDistance: number;
   constructor(rayCollisionDistance = 1e-2, maxDistance = 10) {
     this.rayCollisionDistance = rayCollisionDistance;
-    this.sdf = new Sphere(Forward(),  0.4);
+    this.sdf = new Sphere(Forward(), 0.4);
     this.maxDistance = maxDistance;
   }
 

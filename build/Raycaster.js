@@ -1,6 +1,6 @@
 import { vec3 } from 'gl-matrix';
 import { Sphere } from './sdf/Sphere';
-import { Black, toColor } from './struct/Color';
+import { Black } from './struct/Color';
 import { Forward, Zero } from './struct/Vec3Constants';
 export class Raycaster {
     constructor(rayCollisionDistance = 1e-2, maxDistance = 10) {
@@ -21,9 +21,6 @@ export class Raycaster {
             distanceTravelled += distance;
         }
         return Black();
-    }
-    backgroundColor(direction) {
-        return toColor([500 * direction[2], 500 * direction[1], 0, 255]);
     }
 }
 //# sourceMappingURL=Raycaster.js.map
