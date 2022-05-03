@@ -1,5 +1,5 @@
-import { ForwardDir } from "./Direction";
-import { Zero } from "./Vec3Constants";
+import { ForwardDir } from './Direction';
+import { Zero } from './Vec3Constants';
 export class Ray {
     constructor(pos = Zero, dir = ForwardDir) {
         this.pos = pos;

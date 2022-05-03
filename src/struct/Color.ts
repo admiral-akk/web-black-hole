@@ -12,8 +12,20 @@ function assertValidColor(input: vec4): asserts input is Color {
   }
 }
 
+function boundRGBAValue(input: number) {
+    if (input <0){
+    return 0;}
+    if (input > 255){
+    return 255;}
+    return input;
+}
+
 export function toColor(input: vec4): Color {
+
   const output = vec4.clone(input);
+  for (let i = 0; i < 4; i++) {
+    output[i] = boundRGBAValue(output[i]);
+  }
   assertValidColor(output);
   return output;
 }

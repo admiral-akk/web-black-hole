@@ -5,8 +5,20 @@ function assertValidColor(input) {
         throw new Error(`The color: ${input} has out of bounds values!`);
     }
 }
+function boundRGBAValue(input) {
+    if (input < 0) {
+        return 0;
+    }
+    if (input > 255) {
+        return 255;
+    }
+    return input;
+}
 export function toColor(input) {
-    let output = vec4.clone(input);
+    const output = vec4.clone(input);
+    for (let i = 0; i < 4; i++) {
+        output[i] = boundRGBAValue(output[i]);
+    }
     assertValidColor(output);
     return output;
 }

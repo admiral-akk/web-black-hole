@@ -8,7 +8,7 @@ function assertValidDirection(input) {
     }
 }
 export function toDirection(input) {
-    let output = vec3.create();
+    const output = vec3.create();
     vec3.scale(output, input, 1 / vec3.length(input));
     assertValidDirection(output);
     return output;

@@ -58,13 +58,14 @@ const bindGroupLayout = device.createBindGroupLayout({
             buffer: {
                 type: 'read-only-storage',
             },
-        }, {
+        },
+        {
             binding: 1,
             visibility: GPUShaderStage.COMPUTE,
             buffer: {
                 type: 'storage',
             },
-        }
+        },
     ],
 });
 const input = device.createBuffer({
@@ -79,12 +80,13 @@ const bindGroup = device.createBindGroup({
             resource: {
                 buffer: input,
             },
-        }, {
+        },
+        {
             binding: 1,
             resource: {
                 buffer: output,
             },
-        }
+        },
     ],
 });
 const pipeline = device.createComputePipeline({
@@ -137,8 +139,11 @@ function command() {
 function render() {
     device.queue.writeBuffer(input, 0, inputBalls);
     device.queue.submit([command()]);
-    stagingBuffer.mapAsync(GPUMapMode.READ, 0, // Offset
-    BUFFER_SIZE).then(() => {
+    stagingBuffer
+        .mapAsync(GPUMapMode.READ, 0, // Offset
+    BUFFER_SIZE // Length
+    )
+        .then(() => {
         const copyArrayBuffer = stagingBuffer.getMappedRange(0, BUFFER_SIZE);
         const data = copyArrayBuffer.slice(0);
         stagingBuffer.unmap();
@@ -152,7 +157,12 @@ function sdf(x, y, z) {
     return 1;
 }
 function getColor(x, y) {
-    return [Math.floor(255 * y / canvas.height), Math.floor(255 * x / canvas.width), 0, 255];
+    return [
+        Math.floor((255 * y) / canvas.height),
+        Math.floor((255 * x) / canvas.width),
+        0,
+        255,
+    ];
 }
 function renderImage() {
     const startTime = Date.now();

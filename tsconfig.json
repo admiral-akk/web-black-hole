@@ -1,16 +1,17 @@
 {
-    "extends": "./node_modules/gts/tsconfig-google.json",
-    "compilerOptions": {
-      "module": "esnext",
-      "target": "es2017", 
-      "lib" : ["DOM", "es6"],
-      "esModuleInterop": true,
-      "rootDir": "./src",
-      "outDir": "build"
-    },
-    "include": [
-      "src/**/*.ts",
-      "node_modules/@webgpu/types/**/*"
-    ]
-  }
-  
+  "extends": "./node_modules/gts/tsconfig-google.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "build",
+          "module": "esnext",
+          "target": "es2017",
+          "lib" : ["DOM", "es6"],
+          "esModuleInterop": true,
+          "moduleResolution": "node"
+  },
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts",
+    "node_modules/@webgpu/types/**/*"
+  ]
+}
