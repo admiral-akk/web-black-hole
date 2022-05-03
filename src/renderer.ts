@@ -15,19 +15,6 @@ export class Renderer {
     this.raycaster = new Raycaster();
   }
 
-  private sdf(x: number, y: number, z: number): number {
-    return 1;
-  }
-
-  private getColor(x: number, y: number): [number, number, number, number] {
-    return [
-      Math.floor((255 * y) / this.ctx.canvas.height),
-      Math.floor((255 * x) / this.ctx.canvas.width),
-      0,
-      255,
-    ];
-  }
-
   Render() {
     const imageData = this.ctx.getImageData(
       0,

@@ -9,17 +9,6 @@ export class Renderer {
         this.camera = new Camera();
         this.raycaster = new Raycaster();
     }
-    sdf(x, y, z) {
-        return 1;
-    }
-    getColor(x, y) {
-        return [
-            Math.floor((255 * y) / this.ctx.canvas.height),
-            Math.floor((255 * x) / this.ctx.canvas.width),
-            0,
-            255,
-        ];
-    }
     Render() {
         const imageData = this.ctx.getImageData(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         const data = imageData.data;
@@ -37,4 +26,4 @@ export class Renderer {
         this.ctx.putImageData(imageData, 0, 0);
     }
 }
-//# sourceMappingURL=renderer.js.map
+//# sourceMappingURL=Renderer.js.map

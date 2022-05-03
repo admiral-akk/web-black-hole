@@ -1,6 +1,6 @@
 // https://evertpot.com/opaque-ts-types/
 import { vec3 } from 'gl-matrix';
-import { Forward, Right, Up } from './Vec3Constants';
+import { Forward } from './Vec3Constants';
 function assertValidDirection(input) {
     if (Math.abs(1 - vec3.length(input)) > 0.000001) {
         console.log(`length: ${vec3.length(input)}`);
@@ -8,12 +8,9 @@ function assertValidDirection(input) {
     }
 }
 export function toDirection(input) {
-    const output = vec3.create();
-    vec3.scale(output, input, 1 / vec3.length(input));
-    assertValidDirection(output);
-    return output;
+    vec3.scale(input, input, 1 / vec3.length(input));
+    assertValidDirection(input);
+    return input;
 }
-export const ForwardDir = toDirection(Forward);
-export const UpDir = toDirection(Up);
-export const RightDir = toDirection(Right);
+export function ForwardDir() { return toDirection(Forward()); }
 //# sourceMappingURL=Direction.js.map

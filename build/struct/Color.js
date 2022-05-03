@@ -22,4 +22,14 @@ export function toColor(input) {
     assertValidColor(output);
     return output;
 }
+export function White() { return toColor([255, 255, 255, 255]); }
+;
+export function Black() { return toColor([0, 0, 0, 255]); }
+;
+export function Red() { return toColor([255, 0, 0, 255]); }
+;
+export function Green() { return toColor([0, 255, 0, 255]); }
+;
+export function Blue() { return toColor([0, 0, 255, 255]); }
+;
 //# sourceMappingURL=Color.js.map

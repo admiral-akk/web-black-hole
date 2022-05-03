@@ -15,12 +15,9 @@ function assertValidDirection(input: vec3): asserts input is Direction {
 }
 
 export function toDirection(input: vec3): Direction {
-  const output = vec3.create();
-  vec3.scale(output, input, 1 / vec3.length(input));
-  assertValidDirection(output);
-  return output;
+  vec3.scale(input, input, 1 / vec3.length(input));
+  assertValidDirection(input);
+  return input;
 }
 
-export const ForwardDir = toDirection(Forward);
-export const UpDir = toDirection(Up);
-export const RightDir = toDirection(Right);
+export function ForwardDir() { return toDirection(Forward());}
