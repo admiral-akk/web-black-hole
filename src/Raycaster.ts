@@ -1,7 +1,7 @@
 import {vec3} from 'gl-matrix';
 import {SDF} from './sdf/SDF';
 import {Sphere} from './sdf/Sphere';
-import {Color, toColor, White} from './struct/Color';
+import {Black, Color, toColor, White} from './struct/Color';
 import {Direction} from './struct/Direction';
 import {Ray} from './struct/Ray';
 import {Forward, Zero} from './struct/Vec3Constants';
@@ -22,16 +22,12 @@ export class Raycaster {
     while (distanceTravelled < this.maxDistance) {
       const distance = this.sdf.distance(ray.pos);
       if (distance < this.rayCollisionDistance) {
-        return White();
+        return this.sdf.color(ray.pos);
       }
       step = vec3.scale(step, ray.dir, distance);
       ray.pos = vec3.add(ray.pos, ray.pos, step);
       distanceTravelled += distance;
     }
-    return this.backgroundColor(ray.dir);
-  }
-
-  private backgroundColor(direction: Direction): Color {
-    return toColor([500 * direction[2], 500 * direction[1], 0, 255]);
+    return Black();
   }
 }

@@ -1,4 +1,5 @@
 import { vec3 } from 'gl-matrix';
+import { Color } from '../struct/Color';
 import { SDF } from './SDF';
 export declare class Sphere implements SDF {
     pos: vec3;
@@ -7,4 +8,5 @@ export declare class Sphere implements SDF {
     constructor(pos?: vec3, rad?: number);
     distance(pos: vec3): number;
     normal(pos: vec3): vec3;
+    color(pos: vec3): Color;
 }
