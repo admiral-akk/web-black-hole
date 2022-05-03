@@ -9,6 +9,9 @@ export class Renderer {
         this.camera = new Camera();
         this.raycaster = new Raycaster();
     }
+    pan(movement) {
+        this.camera.pan(movement);
+    }
     Render() {
         const imageData = this.ctx.getImageData(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         const data = imageData.data;

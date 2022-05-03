@@ -8,6 +8,11 @@ export class Camera {
         this.pos = pos;
         this.dir = dir;
     }
+    pan(movement) {
+        const xAngle = (movement[0] / 200);
+        const yAngle = (movement[1] / 200);
+        vec3.rotateY(this.dir, this.dir, Zero(), -xAngle);
+    }
     viewportToRay(viewport) {
         const xAngle = ((viewport[0] - 0.5) * this.focalAngleRad) / 2;
         const rayDir = vec3.clone(this.dir);

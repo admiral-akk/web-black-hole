@@ -15,6 +15,10 @@ export class Renderer {
     this.raycaster = new Raycaster();
   }
 
+  pan(movement: vec2) {
+    this.camera.pan(movement);
+  }
+
   Render() {
     const imageData = this.ctx.getImageData(
       0,

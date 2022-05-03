@@ -6,5 +6,6 @@ export declare class Camera {
     dir: Direction;
     focalAngleRad: number;
     constructor(focalAngle?: number, pos?: vec3, dir?: Direction);
+    pan(movement: vec2): void;
     viewportToRay(viewport: vec2): Ray;
 }

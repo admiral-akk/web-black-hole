@@ -1,11 +1,11 @@
+import {vec2} from 'gl-matrix';
+import {InputController} from './InputController';
 import {Renderer} from './Renderer';
 
 const renderer = new Renderer();
-
+const input = new InputController((move: vec2) => renderer.pan(move));
 function renderLoop() {
-  const start = Date.now();
   renderer.Render();
-  console.log(`render time: ${Date.now() - start}ms`);
   setTimeout(() => renderLoop(), 100);
 }
 renderLoop();

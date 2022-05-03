@@ -1,4 +1,4 @@
-import {vec2, vec3} from 'gl-matrix';
+import {mat4, vec2, vec3} from 'gl-matrix';
 import {ForwardDir, Direction, toDirection} from './struct/Direction';
 import {Ray} from './struct/Ray';
 import {Zero} from './struct/Vec3Constants';
@@ -16,6 +16,12 @@ export class Camera {
     this.focalAngleRad = (Math.PI * focalAngle) / 180;
     this.pos = pos;
     this.dir = dir;
+  }
+
+  pan(movement: vec2) { 
+    const xAngle = (movement[0] / 200);
+    const yAngle = (movement[1] / 200);
+    vec3.rotateY(this.dir, this.dir, Zero(), -xAngle);
   }
 
   viewportToRay(viewport: vec2): Ray {
