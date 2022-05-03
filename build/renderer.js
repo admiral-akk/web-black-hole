@@ -1,4 +1,5 @@
-import { Camera } from "./Camera";
+import { Camera } from './Camera';
+import { Raycaster } from './Raycaster';
 export class Renderer {
     constructor() {
         const canvas = document.getElementById('gpu-canvas');
@@ -6,6 +7,7 @@ export class Renderer {
         this.ctx.canvas.width = 400;
         this.ctx.canvas.height = 400;
         this.camera = new Camera();
+        this.raycaster = new Raycaster();
     }
     sdf(x, y, z) {
         return 1;
@@ -16,11 +18,13 @@ export class Renderer {
     }
     Render() {
         const imageData = this.ctx.getImageData(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-        let data = imageData.data;
-        for (var i = 0; i < data.length; i += 4) {
-            var x = Math.floor(Math.floor(i / 4) % this.ctx.canvas.width);
-            var y = Math.floor(Math.floor(i / 4) / this.ctx.canvas.width);
-            [data[i], data[i + 1], data[i + 2], data[i + 3]] = this.getColor(x, y);
+        const data = imageData.data;
+        for (let i = 0; i < data.length; i += 4) {
+            const x = Math.floor(Math.floor(i / 4) % this.ctx.canvas.width);
+            const y = Math.floor(Math.floor(i / 4) / this.ctx.canvas.width);
+            const viewportCoordinates = [x / this.ctx.canvas.width, y / this.ctx.canvas.height];
+            const ray = this.camera.viewportToRay(viewportCoordinates);
+            [data[i], data[i + 1], data[i + 2], data[i + 3]] = this.raycaster.castRay(ray);
         }
         this.ctx.putImageData(imageData, 0, 0);
     }

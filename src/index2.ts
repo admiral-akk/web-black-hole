@@ -1,5 +1,3 @@
-
-
 export {};
 const entry: GPU = navigator.gpu;
 if (!entry) {
@@ -45,7 +43,6 @@ const module = device.createShaderModule({
     `,
 });
 
-
 const BUFFER_SIZE = 1000;
 
 const output = device.createBuffer({
@@ -58,23 +55,24 @@ const stagingBuffer = device.createBuffer({
   usage: GPUBufferUsage.MAP_READ | GPUBufferUsage.COPY_DST,
 });
 
-const bindGroupLayout =
-  device.createBindGroupLayout({
-    entries: [
-      {
-        binding: 0,
-        visibility: GPUShaderStage.COMPUTE,
-        buffer: {
-          type: 'read-only-storage',
-        },
-      }, {
-        binding: 1,
-        visibility: GPUShaderStage.COMPUTE,
-        buffer: {
-          type: 'storage',
-        },
-      }],
-  });
+const bindGroupLayout = device.createBindGroupLayout({
+  entries: [
+    {
+      binding: 0,
+      visibility: GPUShaderStage.COMPUTE,
+      buffer: {
+        type: 'read-only-storage',
+      },
+    },
+    {
+      binding: 1,
+      visibility: GPUShaderStage.COMPUTE,
+      buffer: {
+        type: 'storage',
+      },
+    },
+  ],
+});
 const input = device.createBuffer({
   size: BUFFER_SIZE,
   usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_DST,
@@ -87,12 +85,14 @@ const bindGroup = device.createBindGroup({
       resource: {
         buffer: input,
       },
-    }, {
+    },
+    {
       binding: 1,
       resource: {
         buffer: output,
       },
-    }],
+    },
+  ],
 });
 const pipeline = device.createComputePipeline({
   layout: device.createPipelineLayout({
@@ -104,8 +104,6 @@ const pipeline = device.createComputePipeline({
   },
 });
 
-
-
 console.log('version 1');
 
 const NUM_BALLS = 1000;
@@ -116,13 +114,18 @@ const canvas = document.getElementById('gpu-canvas')! as HTMLCanvasElement;
 const ctx = canvas.getContext('2d')!;
 
 function renderOutput(state: Float32Array) {
-  ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height);
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   for (let i = 0; i < NUM_BALLS; i++) {
-    ctx.fillRect(state[i * 6 + 2], state[i * 6 + 3], state[i * 6], state[i * 6]);
+    ctx.fillRect(
+      state[i * 6 + 2],
+      state[i * 6 + 3],
+      state[i * 6],
+      state[i * 6]
+    );
   }
 }
 
-function initializeBalls() : Float32Array {
+function initializeBalls(): Float32Array {
   const balls = new Float32Array(new ArrayBuffer(BUFFER_SIZE));
   for (let i = 0; i < NUM_BALLS; i++) {
     balls[i * 6 + 0] = randomBetween(2, 10); // radius
@@ -145,43 +148,47 @@ function command() {
   passEncoder.dispatchWorkgroups(Math.ceil(BUFFER_SIZE / 64));
   passEncoder.end();
   commandEncoder.copyBufferToBuffer(
-      output,
-      0, // Source offset
-      stagingBuffer,
-      0, // Destination offset
-      BUFFER_SIZE,
+    output,
+    0, // Source offset
+    stagingBuffer,
+    0, // Destination offset
+    BUFFER_SIZE
   );
-return commandEncoder.finish();
+  return commandEncoder.finish();
 }
 
 function render() {
   device.queue.writeBuffer(input, 0, inputBalls);
   device.queue.submit([command()]);
-  stagingBuffer.mapAsync(
+  stagingBuffer
+    .mapAsync(
       GPUMapMode.READ,
       0, // Offset
-      BUFFER_SIZE, // Length
-  ).then(() => {
-    const copyArrayBuffer =
-    stagingBuffer.getMappedRange(0, BUFFER_SIZE);
-    const data = copyArrayBuffer.slice(0);
-    stagingBuffer.unmap();
-    inputBalls = new Float32Array(data);
-    renderOutput(inputBalls);
-    window.requestAnimationFrame(render);
-  });
+      BUFFER_SIZE // Length
+    )
+    .then(() => {
+      const copyArrayBuffer = stagingBuffer.getMappedRange(0, BUFFER_SIZE);
+      const data = copyArrayBuffer.slice(0);
+      stagingBuffer.unmap();
+      inputBalls = new Float32Array(data);
+      renderOutput(inputBalls);
+      window.requestAnimationFrame(render);
+    });
 }
 
-let frameTime :number[]= [];
+const frameTime: number[] = [];
 
-function sdf(x:number,y:number,z:number) : number {
+function sdf(x: number, y: number, z: number): number {
   return 1;
 }
 
-function getColor(x:number,y:number) : [number,number,number,number]{
-  
- return [Math.floor(255 * y /  canvas.height),Math.floor(255 * x /  canvas.width),0,255];
-
+function getColor(x: number, y: number): [number, number, number, number] {
+  return [
+    Math.floor((255 * y) / canvas.height),
+    Math.floor((255 * x) / canvas.width),
+    0,
+    255,
+  ];
 }
 
 function renderImage() {
@@ -190,18 +197,18 @@ function renderImage() {
   while (startTime - frameTime[0] > 1000) {
     frameTime.shift();
   }
-  console.log(`fps estimate: ${frameTime.length}`)
-ctx.canvas.width  = 400;
-ctx.canvas.height = 400;
-const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-let data = imageData.data;
-for (var i = 0; i < data.length; i += 4) {
-  var x = Math.floor(Math.floor(i/4) % canvas.width);
-  var y = Math.floor(Math.floor(i/4) / canvas.width);
-  [data[i],data[i+1],data[i+2],data[i+3]] = getColor(x,y);
-}
-ctx.putImageData(imageData,0,0);
-window.requestAnimationFrame(renderImage);
+  console.log(`fps estimate: ${frameTime.length}`);
+  ctx.canvas.width = 400;
+  ctx.canvas.height = 400;
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const data = imageData.data;
+  for (let i = 0; i < data.length; i += 4) {
+    const x = Math.floor(Math.floor(i / 4) % canvas.width);
+    const y = Math.floor(Math.floor(i / 4) / canvas.width);
+    [data[i], data[i + 1], data[i + 2], data[i + 3]] = getColor(x, y);
+  }
+  ctx.putImageData(imageData, 0, 0);
+  window.requestAnimationFrame(renderImage);
 }
 
 renderImage();

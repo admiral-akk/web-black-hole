@@ -147,7 +147,7 @@ function render() {
         window.requestAnimationFrame(render);
     });
 }
-let frameTime = [];
+const frameTime = [];
 function sdf(x, y, z) {
     return 1;
 }
@@ -164,10 +164,10 @@ function renderImage() {
     ctx.canvas.width = 400;
     ctx.canvas.height = 400;
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    let data = imageData.data;
-    for (var i = 0; i < data.length; i += 4) {
-        var x = Math.floor(Math.floor(i / 4) % canvas.width);
-        var y = Math.floor(Math.floor(i / 4) / canvas.width);
+    const data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+        const x = Math.floor(Math.floor(i / 4) % canvas.width);
+        const y = Math.floor(Math.floor(i / 4) / canvas.width);
         [data[i], data[i + 1], data[i + 2], data[i + 3]] = getColor(x, y);
     }
     ctx.putImageData(imageData, 0, 0);
