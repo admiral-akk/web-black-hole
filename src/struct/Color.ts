@@ -31,8 +31,18 @@ export function toColor(input: vec4): Color {
   return output;
 }
 
-export function White() : Color {return toColor([255, 255, 255, 255]);} ;
-export function Black() : Color {return  toColor([0, 0, 0, 255]);} ;
-export function Red() : Color { return toColor([255, 0, 0, 255]);} ;
-export function Green() : Color {return  toColor([0, 255, 0, 255]);} ;
-export function Blue() : Color {return toColor([0, 0, 255, 255]);} ;
+export function White(): Color {
+  return toColor([255, 255, 255, 255]);
+}
+export function Black(): Color {
+  return toColor([0, 0, 0, 255]);
+}
+export function Red(): Color {
+  return toColor([255, 0, 0, 255]);
+}
+export function Green(): Color {
+  return toColor([0, 255, 0, 255]);
+}
+export function Blue(): Color {
+  return toColor([0, 0, 255, 255]);
+}

@@ -12,5 +12,7 @@ export function toDirection(input) {
     assertValidDirection(input);
     return input;
 }
-export function ForwardDir() { return toDirection(Forward()); }
+export function ForwardDir() {
+    return toDirection(Forward());
+}
 //# sourceMappingURL=Direction.js.map

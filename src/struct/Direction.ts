@@ -20,4 +20,6 @@ export function toDirection(input: vec3): Direction {
   return input;
 }
 
-export function ForwardDir() { return toDirection(Forward());}
+export function ForwardDir() {
+  return toDirection(Forward());
+}

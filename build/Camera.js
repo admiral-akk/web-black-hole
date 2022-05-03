@@ -14,7 +14,7 @@ export class Camera {
         vec3.rotateY(rayDir, rayDir, Zero(), -xAngle);
         const yAngle = ((viewport[1] - 0.5) * this.focalAngleRad) / 2;
         vec3.rotateZ(rayDir, rayDir, Zero(), -yAngle);
-        const ray = new Ray(this.pos, toDirection(rayDir));
+        const ray = new Ray(vec3.clone(this.pos), toDirection(rayDir));
         return ray;
     }
 }

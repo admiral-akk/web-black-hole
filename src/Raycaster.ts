@@ -1,30 +1,32 @@
 import {vec3} from 'gl-matrix';
-import {SDF} from './SDF';
+import {SDF} from './sdf/SDF';
+import {Sphere} from './sdf/Sphere';
 import {Color, toColor, White} from './struct/Color';
-import { Direction} from './struct/Direction';
+import {Direction} from './struct/Direction';
 import {Ray} from './struct/Ray';
-import {Zero} from './struct/Vec3Constants';
+import {Forward, Zero} from './struct/Vec3Constants';
 
 export class Raycaster {
   private rayCollisionDistance: number;
   private sdf: SDF;
-  private maxSteps: number;
-  constructor(rayCollisionDistance = 1e-6, maxSteps = 10) {
+  private maxDistance: number;
+  constructor(rayCollisionDistance = 1e-2, maxDistance = 10) {
     this.rayCollisionDistance = rayCollisionDistance;
-    this.sdf = new SDF();
-    this.maxSteps = maxSteps;
+    this.sdf = new Sphere(Forward(),  0.4);
+    this.maxDistance = maxDistance;
   }
 
   castRay(ray: Ray): Color {
     let step: vec3 = Zero();
-
-    for (let i = 0; i < this.maxSteps; i++) {
-      const distance = this.sdf.Distance(ray.pos);
+    let distanceTravelled = 0;
+    while (distanceTravelled < this.maxDistance) {
+      const distance = this.sdf.distance(ray.pos);
       if (distance < this.rayCollisionDistance) {
         return White();
       }
-      vec3.scale(step, ray.dir, distance);
-      vec3.add(ray.pos, ray.pos, step);
+      step = vec3.scale(step, ray.dir, distance);
+      ray.pos = vec3.add(ray.pos, ray.pos, step);
+      distanceTravelled += distance;
     }
     return this.backgroundColor(ray.dir);
   }

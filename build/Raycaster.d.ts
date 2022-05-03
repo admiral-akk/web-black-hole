@@ -3,8 +3,8 @@ import { Ray } from './struct/Ray';
 export declare class Raycaster {
     private rayCollisionDistance;
     private sdf;
-    private maxSteps;
-    constructor(rayCollisionDistance?: number, maxSteps?: number);
+    private maxDistance;
+    constructor(rayCollisionDistance?: number, maxDistance?: number);
     castRay(ray: Ray): Color;
     private backgroundColor;
 }
