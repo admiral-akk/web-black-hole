@@ -13,8 +13,7 @@ export class Raycaster {
   constructor(rayCollisionDistance = 1e-2, maxDistance = 10) {
     this.rayCollisionDistance = rayCollisionDistance;
     this.sdf = new HalfLambertLighting<Sphere>(
-      new Sphere(Forward(), 0.4),
-      [1, 1, 1]
+      new Sphere(Zero(), 0.4), [1,1,1]
     );
     this.maxDistance = maxDistance;
   }

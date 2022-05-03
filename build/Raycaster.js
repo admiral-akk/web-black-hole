@@ -2,11 +2,11 @@ import { vec3 } from 'gl-matrix';
 import { HalfLambertLighting } from './sdf/HalfLambertLighting';
 import { Sphere } from './sdf/Sphere';
 import { Black, toColor } from './struct/Color';
-import { Forward, Zero } from './struct/Vec3Constants';
+import { Zero } from './struct/Vec3Constants';
 export class Raycaster {
     constructor(rayCollisionDistance = 1e-2, maxDistance = 10) {
         this.rayCollisionDistance = rayCollisionDistance;
-        this.sdf = new HalfLambertLighting(new Sphere(Forward(), 0.4), [1, 1, 1]);
+        this.sdf = new HalfLambertLighting(new Sphere(Zero(), 0.4), [1, 1, 1]);
         this.maxDistance = maxDistance;
     }
     castRay(ray) {
