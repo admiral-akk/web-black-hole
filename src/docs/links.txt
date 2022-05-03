@@ -1,0 +1,3 @@
+Raytracing blackholes: https://rantonels.github.io/starless/
+Black hole math: http://spiro.fisica.unipd.it/~antonell/schwarzschild/
+Raymatching tutorial: https://michaelwalczyk.com/blog-ray-marching.html

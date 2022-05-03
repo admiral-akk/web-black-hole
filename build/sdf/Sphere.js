@@ -1,5 +1,4 @@
 import { vec3 } from 'gl-matrix';
-import { toColor } from '../struct/Color';
 import { One, Zero } from '../struct/Vec3Constants';
 export class Sphere {
     constructor(pos = Zero(), rad = 1) {
@@ -18,8 +17,7 @@ export class Sphere {
     color(pos) {
         let norm = this.normal(pos);
         norm = vec3.add(norm, norm, One());
-        norm = vec3.scale(norm, norm, 255 / 2);
-        return toColor(norm);
+        return vec3.scale(norm, norm, 255 / 2);
     }
 }
 //# sourceMappingURL=Sphere.js.map
